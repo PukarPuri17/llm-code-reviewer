@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LLM Code Review Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>🔍 LLM Code Review Assistant</h1>
+    <p class="subtitle">Powered by Claude — paste your code below and get instant AI feedback</p>
+  </header>
+
+  <main>
+    <section class="input-section">
+
+      <div class="form-group">
+        <label for="language">Programming Language</label>
+        <select id="language">
+          <option value="">-- Select Language --</option>
+          <option value="python">Python</option>
+          <option value="javascript">JavaScript</option>
+          <option value="java">Java</option>
+          <option value="c">C</option>
+          <option value="c++">C++</option>
+          <option value="typescript">TypeScript</option>
+          <option value="go">Go</option>
+          <option value="rust">Rust</option>
+          <option value="sql">SQL</option>
+          <option value="bash">Bash</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="code-input">Paste Your Code</label>
+        <textarea id="code-input" placeholder="Paste your source code here..." rows="16" spellcheck="false"></textarea>
+        <div id="char-count" class="char-count">0 / 10,000 characters</div>
+      </div>
+
+      <div id="validation-error" class="error-banner hidden"></div>
+
+      <button id="analyze-btn" onclick="analyzeCode()">Analyze Code</button>
+
+    </section>
+
+    <div id="loading" class="loading hidden">
+      <div class="spinner"></div>
+      <p>Sending code to Claude... this usually takes 3–8 seconds.</p>
+    </div>
+
+    <section id="results" class="results hidden">
+      <h2>Analysis Results</h2>
+      <p class="disclaimer">
+        ⚠️ <strong>AI output is not authoritative.</strong> Always review suggestions manually before applying them.
+      </p>
+
+      <div class="panels">
+        <div class="panel panel-bugs">
+          <h3>🐛 Bugs</h3>
+          <ul id="bugs-list"><li class="empty">No issues found.</li></ul>
+        </div>
+
+        <div class="panel panel-security">
+          <h3>🔒 Security</h3>
+          <ul id="security-list"><li class="empty">No issues found.</li></ul>
+        </div>
+
+        <div class="panel panel-quality">
+          <h3>✨ Code Quality</h3>
+          <ul id="quality-list"><li class="empty">No issues found.</li></ul>
+        </div>
+      </div>
+
+      <button id="reset-btn" onclick="resetForm()">Review Another File</button>
+    </section>
+
+    <div id="api-error" class="error-banner hidden"></div>
+
+  </main>
+
+  <footer>
+    <p>LLM-Based Code Review Assistant &mdash; CSCI 334, St. Cloud State University &mdash; Pukar Puri</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
