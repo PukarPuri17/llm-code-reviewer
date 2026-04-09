@@ -4,7 +4,7 @@
 
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 LOG_FILE = "logs/sessions.json"
@@ -37,7 +37,7 @@ def log_session(language: str, code_length: int, results: dict) -> None:
         log_data = []
 
     entry = {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": datetime.now(timezone.utc).isoformat() ,
         "language": language,
         "code_length": code_length,
         "bug_count": len(results.get("bugs", [])),
