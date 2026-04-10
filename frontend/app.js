@@ -1,7 +1,7 @@
 // app.js — Frontend JavaScript Logic
 // Handles form submission, calls the backend API, and renders results.
 
-const API_URL = "http://localhost:5000/api/review";
+const API_URL = "https://friendly-goldfish-x5rr56wvv9jr3v99p-5000.app.github.dev/api/review";
 const MAX_CHARS = 10000;
 
 // Update character counter as user types
