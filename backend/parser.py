@@ -28,9 +28,9 @@ def parse_response(raw_text: str) -> Dict[str, List[str]]:
     result = {'bugs': [], 'security': [], 'quality': []}
 
     section_patterns = {
-        'bugs':     r'BUGS:\s*(.*?)(?=SECURITY:|QUALITY:|$)',
-        'security': r'SECURITY:\s*(.*?)(?=BUGS:|QUALITY:|$)',
-        'quality':  r'QUALITY:\s*(.*?)(?=BUGS:|SECURITY:|$)',
+      'bugs':     r'(?:##\s*BUGS|BUGS:)\s*(.*?)(?=##\s*SECURITY|SECURITY:|##\s*QUALITY|QUALITY:|$)',
+    'security': r'(?:##\s*SECURITY|SECURITY:)\s*(.*?)(?=##\s*BUGS|BUGS:|##\s*QUALITY|QUALITY:|$)',
+    'quality':  r'(?:##\s*QUALITY|QUALITY:)\s*(.*?)(?=##\s*BUGS|BUGS:|##\s*SECURITY|SECURITY:|$)',
     }
 
     for key, pattern in section_patterns.items():
@@ -42,7 +42,7 @@ def parse_response(raw_text: str) -> Dict[str, List[str]]:
                 continue
 
             items = [
-                line.strip().lstrip('-*• ').strip()
+                line.strip().lstrip('-*•# ').strip()
                 for line in section_text.split('\n')
                 if line.strip() and line.strip() not in ['-', '*', '•']
             ]
